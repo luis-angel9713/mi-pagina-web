@@ -5,22 +5,177 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hola Mundo</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    * {
       margin: 0;
-      background-color: #f0f4f8;
+      padding: 0;
+      box-sizing: border-box;
     }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .tarjeta {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 50px 60px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      animation: aparecer 1s ease;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     h1 {
-      color: #2d3748;
       font-size: 3rem;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .subtitulo {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      margin-bottom: 30px;
+    }
+
+    .contador {
+      font-size: 1rem;
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+
+    .contador span {
+      font-weight: bold;
+      font-size: 1.4rem;
+      color: #ffd700;
+    }
+
+    .boton {
+      background: white;
+      color: #764ba2;
+      border: none;
+      padding: 14px 35px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin: 8px;
+    }
+
+    .boton:hover {
+      transform: scale(1.07);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    .boton:active {
+      transform: scale(0.97);
+    }
+
+    .mensaje {
+      margin-top: 25px;
+      font-size: 1.2rem;
+      min-height: 35px;
+      font-style: italic;
+      transition: opacity 0.4s;
+    }
+
+    .colores {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 25px;
+    }
+
+    .circulo {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid white;
+      transition: transform 0.2s;
+    }
+
+    .circulo:hover {
+      transform: scale(1.3);
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.85rem;
+      opacity: 0.6;
     }
   </style>
 </head>
 <body>
-  <h1>¡Hola Mundo!</h1>
+
+  <div class="tarjeta">
+    <h1>👋 ¡Hola Mundo!</h1>
+    <p class="subtitulo">Mi primera página web interactiva</p>
+
+    <p class="contador">Veces que hiciste clic: <span id="num">0</span></p>
+
+    <button class="boton" onclick="saludar()">¡Salúdame!</button>
+    <button class="boton" onclick="resetear()">Resetear</button>
+
+    <p class="mensaje" id="mensaje">Presiona el botón 👆</p>
+
+    <div class="colores">
+      <div class="circulo" style="background:#e74c3c" onclick="cambiarColor('#e74c3c, #c0392b')"></div>
+      <div class="circulo" style="background:#2ecc71" onclick="cambiarColor('#2ecc71, #27ae60')"></div>
+      <div class="circulo" style="background:#f39c12" onclick="cambiarColor('#f39c12, #e67e22')"></div>
+      <div class="circulo" style="background:#667eea" onclick="cambiarColor('#667eea, #764ba2')"></div>
+      <div class="circulo" style="background:#1abc9c" onclick="cambiarColor('#1abc9c, #16a085')"></div>
+    </div>
+  </div>
+
+  <footer>Hecho con ❤️ — GitHub Pages</footer>
+
+  <script>
+    const mensajes = [
+      "¡Hola! ¿Cómo estás? 😊",
+      "¡Sigue explorando! 🚀",
+      "¡Eres increíble! 🌟",
+      "¡Aprender es genial! 💡",
+      "¡GitHub Pages mola! 🐙",
+      "¡Tú puedes con esto! 💪",
+    ];
+
+    let contador = 0;
+
+    function saludar() {
+      contador++;
+      document.getElementById("num").textContent = contador;
+      const m = mensajes[Math.floor(Math.random() * mensajes.length)];
+      const el = document.getElementById("mensaje");
+      el.style.opacity = 0;
+      setTimeout(() => {
+        el.textContent = m;
+        el.style.opacity = 1;
+      }, 200);
+    }
+
+    function resetear() {
+      contador = 0;
+      document.getElementById("num").textContent = 0;
+      document.getElementById("mensaje").textContent = "Presiona el botón 👆";
+    }
+
+    function cambiarColor(colores) {
+      document.body.style.background = `linear-gradient(135deg, ${colores})`;
+    }
+  </script>
+
 </body>
 </html>
